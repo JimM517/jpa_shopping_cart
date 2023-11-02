@@ -13,8 +13,8 @@ import java.util.Set;
 public class ApplicationUser implements UserDetails{
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer userId;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long userId;
 	@Column(unique=true)
     private String username;
     private String password;
@@ -33,7 +33,7 @@ public class ApplicationUser implements UserDetails{
 	}
 	
 
-	public ApplicationUser(Integer userId, String username, String password, Set<Role> authorities) {
+	public ApplicationUser(Long userId, String username, String password, Set<Role> authorities) {
 		super();
 		this.userId = userId;
 		this.username = username;
@@ -41,11 +41,11 @@ public class ApplicationUser implements UserDetails{
 		this.authorities = authorities;
 	}
 
-    public Integer getUserId() {
+    public Long getUserId() {
 		return this.userId;
 	}
 	
-	public void setId(Integer userId) {
+	public void setId(Long userId) {
 		this.userId = userId;
 	}
 	
