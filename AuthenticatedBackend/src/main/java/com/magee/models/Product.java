@@ -1,12 +1,14 @@
 package com.magee.models;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
 @Table(name = "product")
+@Builder
 public class Product {
 
     @Id

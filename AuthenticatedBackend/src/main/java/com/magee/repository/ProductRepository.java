@@ -19,7 +19,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Product findProductByUserId(Long userId);
 
 
-    Product findProductProductSkuOrNameContaining(String productSku, String name);
+    Product findProductByProductSkuOrNameContaining(String productSku, String name);
 
 
 
