@@ -9,8 +9,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ProductRepositoryTest {
@@ -94,6 +93,44 @@ class ProductRepositoryTest {
 
 
     }
+
+
+    @Test
+    public void updateProduct() {
+
+        Product product = Product.builder()
+                .productSku("MUG-0025")
+                .name("Coffee Mug")
+                .description("Enjoy coffee in the morning!")
+                .price(new BigDecimal("9.99"))
+                .imageName("mug.jpg")
+                .build();
+        productRepository.save(product);
+
+
+
+
+        productRepository.updateProduct(
+                product.getProductId(),
+                "MUG-0028",
+                "Beer Mug",
+                "This mug is just for beer",
+                new BigDecimal("12.99"),
+                "beer-mug.jpg@fake"
+        );
+
+
+        Optional<Product> updatedProduct = productRepository.findById(product.getProductId());
+        assertTrue(updatedProduct.isPresent());
+
+        assertEquals("MUG-0028", updatedProduct.get().getProductSku());
+        assertEquals("Beer Mug", updatedProduct.get().getName());
+        assertEquals("This mug is just for beer", updatedProduct.get().getDescription());
+        assertEquals(new BigDecimal("12.99"), updatedProduct.get().getPrice());
+        assertEquals("beer-mug.jpg@fake", updatedProduct.get().getImageName());
+    }
+
+
 
 
 
