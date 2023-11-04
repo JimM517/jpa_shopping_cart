@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
@@ -16,10 +18,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             value = "SELECT * FROM product WHERE product_id IN (SELECT product_id IN cart_item WHERE user_id = ?1)",
             nativeQuery = true
     )
-    Product findProductByUserId(Long userId);
+    List<Product> findProductByUserId(Long userId);
 
 
-    Product findProductByProductSkuOrNameContaining(String productSku, String name);
+    List<Product> findProductByProductSkuOrNameContaining(String productSku, String name);
 
 
 

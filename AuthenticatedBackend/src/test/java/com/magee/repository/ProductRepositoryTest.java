@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @SpringBootTest
 class ProductRepositoryTest {
 
@@ -54,7 +56,19 @@ class ProductRepositoryTest {
 
 
 
+    @Test
+    public void findProductBySkuOrName() {
 
+        List<Product> skuList = productRepository.findProductByProductSkuOrNameContaining("MUG", "");
+        assertEquals(1, skuList.size());
+        assertEquals("MUG-023", skuList.get(0).getProductSku());
+
+
+        List<Product> nameList = productRepository.findProductByProductSkuOrNameContaining("", "Fake");
+        assertEquals(0, nameList.size());
+
+
+    }
 
 
 
