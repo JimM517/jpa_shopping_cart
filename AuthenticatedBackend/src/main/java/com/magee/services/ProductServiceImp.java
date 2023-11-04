@@ -21,9 +21,10 @@ public class ProductServiceImp implements ProductService{
 
     @Override
     public List<Product> getAllProducts() {
-        return null;
+        return productRepository.findAll();
     }
 
+    // TODO Still need to implement this
     @Override
     public List<Product> getProductByUserId(Long userId) {
         return null;
@@ -31,23 +32,26 @@ public class ProductServiceImp implements ProductService{
 
     @Override
     public List<Product> getProductBySku(String productSku) {
-        return null;
+        return productRepository.findProductByProductSkuContaining(productSku);
     }
 
     @Override
     public List<Product> getProductByName(String name) {
-        return null;
+        return productRepository.findProductByNameContaining(name);
     }
 
+    // TODO need to double check this implementation
     @Override
     public Product update(Product updatedProduct) {
-        return null;
+        return productRepository.save(updatedProduct);
     }
 
     @Override
     public void deleteProduct(Long productId) {
-
+        productRepository.deleteById(productId);
     }
+
+
 
 
 
