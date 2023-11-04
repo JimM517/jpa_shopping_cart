@@ -7,8 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
 class ProductRepositoryTest {
@@ -92,6 +94,35 @@ class ProductRepositoryTest {
 
 
     }
+
+
+
+    @Test
+    public void deleteProduct() {
+
+        Product product = Product.builder()
+                .productSku("ART-256")
+                .name("Galactic poster")
+                .description("Beautiful view of the galaxy.")
+                .price(new BigDecimal("9.59"))
+                .imageName("https://via.placeholder.com/350x250.jpg")
+                .build();
+        productRepository.save(product);
+
+
+        Long productId = product.getProductId();
+
+
+        productRepository.deleteById(productId);
+
+
+        Optional<Product> deletedProduct = productRepository.findById(productId);
+        assertFalse(deletedProduct.isPresent());
+
+
+    }
+
+
 
 
     // TODO add tests for getting user's cart / wishlist items
