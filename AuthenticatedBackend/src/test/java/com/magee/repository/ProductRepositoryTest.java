@@ -82,6 +82,25 @@ class ProductRepositoryTest {
 
 
 
+    @Test
+    public void findProductByName() {
+
+
+        List<Product> nameList = productRepository.findProductByNameContaining("Yeti");
+        assertEquals(1, nameList.size());
+        assertEquals("Solor Geeks Yeti", nameList.get(0).getName());
+
+
+    }
+
+
+    // TODO add tests for getting user's cart / wishlist items
+
+
+
+
+
+
 
 
 
