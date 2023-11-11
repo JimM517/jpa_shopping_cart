@@ -1,11 +1,13 @@
 package com.magee.models;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 import java.util.Objects;
 
 @Entity
 @Table(name = "cart_items")
+@Builder
 public class CartItem {
 
     @Id
