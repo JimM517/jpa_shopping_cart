@@ -41,6 +41,7 @@ public class ProductServiceImp implements ProductService{
     }
 
     // TODO need to double check this implementation
+    // TODO don't really need update product functionality as most eCommerce site wouldn't allow this
     @Override
     public Product update(Product updatedProduct) {
         return productRepository.save(updatedProduct);
