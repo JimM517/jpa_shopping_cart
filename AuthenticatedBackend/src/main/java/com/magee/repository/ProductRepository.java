@@ -18,7 +18,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     // getAll(), getById(), getByUserId(), getByWishListId(), findByProductSkuAndName()
 
 
-    // TODO 11/11 STILL NEED TO IMPLEMENT THIS
+    //TODO 11/11 STILL NEED TO IMPLEMENT THIS
     @Query(
             value = "SELECT * FROM product WHERE product_id IN (SELECT product_id IN cart_item WHERE user_id = ?1)",
             nativeQuery = true
