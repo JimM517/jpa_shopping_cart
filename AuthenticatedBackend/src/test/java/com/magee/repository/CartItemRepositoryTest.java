@@ -3,10 +3,13 @@ package com.magee.repository;
 import com.magee.models.ApplicationUser;
 import com.magee.models.CartItem;
 import com.magee.models.Product;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -78,46 +81,52 @@ class CartItemRepositoryTest {
     }
 
 
-//    @Test
-//    public void deleteCartItem() {
-//
-//        Optional<CartItem> item = cartItemRepository.findById(1L);
-//
-//        Optional<ApplicationUser> user = userRepository.findById(1L);
-//
-//
-//        assertTrue(item.isPresent());
-//        assertTrue(user.isPresent());
-//
-//
-//        int deletedRow = cartItemRepository.deleteCartItemByCartItemIdAndUserId(item.get().getCartItemId(), user.get().getUserId());
-//
-//        assertEquals(1, deletedRow);
-//
-//        Optional<CartItem> deletedItem = cartItemRepository.findById(item.get().getCartItemId());
-//
-//        assertFalse(deletedItem.isPresent());
-//
-//    }
+    // TODO THIS TEST STILL WON'T PASS
+    @Transactional
+    @Rollback
+    @Test
+    public void deleteCartItem() {
+
+        Optional<CartItem> item = cartItemRepository.findById(1L);
+        Optional<ApplicationUser> user = userRepository.findById(1L);
+
+        assertTrue(item.isPresent());
+        assertTrue(user.isPresent());
+
+        int deletedRow = cartItemRepository.deleteCartItemByCartItemIdAndUserId(item.get().getCartItemId(), user.get().getUserId());
+
+        // Assert that the delete operation was successful
+        assertEquals(1, deletedRow);
+
+        // Try to fetch the deleted item again
+        Optional<CartItem> deletedItem = cartItemRepository.findById(item.get().getCartItemId());
+
+        // Assert that the item is not present in the database
+        assertFalse(deletedItem.isPresent());
+
+    }
 
 
-//    @Test
-//    public void clearCart() {
-//
-//        Optional<ApplicationUser> user = userRepository.findById(1L);
-//
-//        assertTrue(user.isPresent());
-//
-//        int deletedRowCount = cartItemRepository.deleteCartItemsByUserId(user.get().getUserId());
-//
-//        assertEquals(0, deletedRowCount);
-//
-//        List<CartItem> deletedItems = cartItemRepository.getCartItemByUserId(1L);
-//        assertEquals(0, deletedItems.size());
-//
-//
-//
-//    }
+    /** THIS ONE WORKS **/
+    @Transactional
+    @Rollback
+    @Test
+    public void clearCart() {
+
+        Optional<ApplicationUser> user = userRepository.findById(1L);
+
+        assertTrue(user.isPresent());
+
+        int deletedRowCount = cartItemRepository.deleteCartItemsByUserId(user.get().getUserId());
+
+        assertEquals(2, deletedRowCount);
+
+        List<CartItem> deletedItems = cartItemRepository.getCartItemByUserId(1L);
+        assertEquals(0, deletedItems.size());
+
+
+
+    }
 
 
 

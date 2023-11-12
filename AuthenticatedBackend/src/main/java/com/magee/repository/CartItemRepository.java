@@ -1,6 +1,7 @@
 package com.magee.repository;
 
 import com.magee.models.CartItem;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -46,6 +47,7 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 
 
     @Modifying
+    @Transactional
     @Query(
             "DELETE FROM CartItem c WHERE c.cartItemId = :cartItemId AND c.appUser.userId = :userId"
     )
@@ -53,6 +55,7 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 
 
     @Modifying
+    @Transactional
     @Query(
             "DELETE FROM CartItem c WHERE c.appUser.userId = :userId"
     )
