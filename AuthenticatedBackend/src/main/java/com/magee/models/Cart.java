@@ -7,6 +7,8 @@ import java.util.List;
 
 public class Cart {
 
+    // TODO may not need this class
+
     private BigDecimal tax;
     private List<CartItem> cartItems;
 
