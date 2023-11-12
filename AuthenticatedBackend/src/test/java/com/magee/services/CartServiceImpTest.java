@@ -3,6 +3,7 @@ package com.magee.services;
 import com.magee.repository.CartItemRepository;
 import com.magee.repository.ProductRepository;
 import com.magee.repository.UserRepository;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -25,6 +26,11 @@ class CartServiceImpTest {
     private CartItemRepository cartItemRepository;
 
 
+
+    @Test
+    void getUserCartTest() {
+
+    }
 
 
 }
