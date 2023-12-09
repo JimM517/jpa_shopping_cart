@@ -65,7 +65,30 @@ public class CartServiceImp implements CartService {
 
     @Override
     public CartItem addToCart(ApplicationUser user, CartItem item) {
-        return null;
+            // get our user
+            ApplicationUser user1 = getUserByUserName(user);
+            item.setAppUser(user1);
+
+           CartItem currentItem = cartItemRepository.getCartItemByCartItemIdAndUserId(item.getCartItemId(), user1.getUserId());
+
+            if (currentItem == null) {
+
+            cartItemRepository.save(item);
+            // checking if the product quantity is greater than 1
+        } else if (item.getQuantity() > 0 && productRepository.existsById(currentItem.getProduct().getProductId())) {
+            currentItem.setQuantity(currentItem.getQuantity() + item.getQuantity());
+
+            cartItemRepository.save(currentItem);
+        }
+
+        else {
+
+            throw new IllegalArgumentException("Quantity must be greater than zero. Try again.");
+
+        }
+
+        return item;
+
     }
 
 
