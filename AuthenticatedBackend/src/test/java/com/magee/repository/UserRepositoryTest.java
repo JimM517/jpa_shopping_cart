@@ -41,4 +41,30 @@ class UserRepositoryTest {
 
     }
 
+
+    // added this test to see if we can add a user with a state code
+    @Test
+    public void addAnotherUser() {
+
+        Role userRole = roleRepository.findByAuthority("USER").orElseGet(() -> roleRepository.save(new Role("USER")));
+
+
+
+        ApplicationUser userWithStateCode = ApplicationUser.builder()
+                .username("jboo")
+                .password(passwordEncoder.encode("temple"))
+                .stateCode("PA")
+                .authorities(Collections.singleton(userRole))
+                .build();
+
+
+
+            userRepository.save(userWithStateCode);
+    }
+
+
+
+
+
+
 }
