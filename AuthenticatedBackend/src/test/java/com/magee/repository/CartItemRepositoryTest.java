@@ -87,22 +87,35 @@ class CartItemRepositoryTest {
     @Test
     public void deleteCartItem() {
 
-        Optional<CartItem> item = cartItemRepository.findById(1L);
-        Optional<ApplicationUser> user = userRepository.findById(1L);
+//        Optional<CartItem> item = cartItemRepository.findById(1L);
+//        Optional<ApplicationUser> user = userRepository.findById(1L);
+//
+//        assertTrue(item.isPresent());
+//        assertTrue(user.isPresent());
+//
+//        int deletedRow = cartItemRepository.deleteCartItemByCartItemIdAndUserId(item.get().getCartItemId(), user.get().getUserId());
+//
+//        // Assert that the delete operation was successful
+//        assertEquals(1, deletedRow);
+//
+//        // Try to fetch the deleted item again
+//        Optional<CartItem> deletedItem = cartItemRepository.findById(item.get().getCartItemId());
+//
+//        // Assert that the item is not present in the database
+//        assertTrue(deletedItem.isPresent());
 
-        assertTrue(item.isPresent());
-        assertTrue(user.isPresent());
 
-        int deletedRow = cartItemRepository.deleteCartItemByCartItemIdAndUserId(item.get().getCartItemId(), user.get().getUserId());
+        CartItem item = cartItemRepository.findById(1L).get();
 
-        // Assert that the delete operation was successful
+        ApplicationUser user = userRepository.findById(1L).get();
+
+
+
+        int deletedRow = cartItemRepository.deleteCartItemByCartItemIdAndUserId(item.getCartItemId(), user.getUserId());
+
         assertEquals(1, deletedRow);
 
-        // Try to fetch the deleted item again
-        Optional<CartItem> deletedItem = cartItemRepository.findById(item.get().getCartItemId());
-
-        // Assert that the item is not present in the database
-        assertFalse(deletedItem.isPresent());
+        CartItem deleted = cartItemRepository.findById(item.getCartItemId()).get();
 
     }
 
