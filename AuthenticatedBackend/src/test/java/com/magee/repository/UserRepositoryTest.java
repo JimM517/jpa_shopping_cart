@@ -63,6 +63,9 @@ class UserRepositoryTest {
     }
 
 
+    // make delete user only accessible to admin
+
+
 
 
 

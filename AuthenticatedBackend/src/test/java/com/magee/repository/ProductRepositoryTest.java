@@ -162,7 +162,7 @@ class ProductRepositoryTest {
 
 
 
-    // TODO add tests for getting user's cart / wishlist items
+
 
 
 
