@@ -82,42 +82,33 @@ class CartItemRepositoryTest {
 
 
     // TODO THIS TEST STILL WON'T PASS
+    // TODO 5/21, won't pass
     @Transactional
     @Rollback
     @Test
     public void deleteCartItem() {
+        // Check if the CartItem and ApplicationUser exist
+        Optional<CartItem> optionalItem = cartItemRepository.findById(1L);
+        assertTrue(optionalItem.isPresent(), "CartItem with id 1 should exist");
 
-//        Optional<CartItem> item = cartItemRepository.findById(1L);
-//        Optional<ApplicationUser> user = userRepository.findById(1L);
-//
-//        assertTrue(item.isPresent());
-//        assertTrue(user.isPresent());
-//
-//        int deletedRow = cartItemRepository.deleteCartItemByCartItemIdAndUserId(item.get().getCartItemId(), user.get().getUserId());
-//
-//        // Assert that the delete operation was successful
-//        assertEquals(1, deletedRow);
-//
-//        // Try to fetch the deleted item again
-//        Optional<CartItem> deletedItem = cartItemRepository.findById(item.get().getCartItemId());
-//
-//        // Assert that the item is not present in the database
-//        assertTrue(deletedItem.isPresent());
+        CartItem item = optionalItem.get();
 
+        Optional<ApplicationUser> optionalUser = userRepository.findById(1L);
+        assertTrue(optionalUser.isPresent(), "User with id 1 should exist");
 
-        CartItem item = cartItemRepository.findById(1L).get();
+        ApplicationUser user = optionalUser.get();
 
-        ApplicationUser user = userRepository.findById(1L).get();
-
-
-
+        // Attempt to delete the CartItem
         int deletedRow = cartItemRepository.deleteCartItemByCartItemIdAndUserId(item.getCartItemId(), user.getUserId());
+        System.out.println(deletedRow);
+        assertEquals(1, deletedRow, "One row should be deleted");
 
-        assertEquals(1, deletedRow);
-
-        CartItem deleted = cartItemRepository.findById(item.getCartItemId()).get();
-
+        // Verify that the CartItem is indeed deleted
+        Optional<CartItem> deletedItem = cartItemRepository.findById(item.getCartItemId());
+        System.out.println(deletedItem);
+        assertFalse(deletedItem.isPresent(), "CartItem should be deleted and not present");
     }
+
 
 
     /** THIS ONE WORKS **/

@@ -24,10 +24,10 @@ public class ProductServiceImp implements ProductService{
         return productRepository.findAll();
     }
 
-    // TODO Still need to implement this
+
     @Override
     public List<Product> getProductByUserId(Long userId) {
-        return null;
+        return productRepository.findProductByUserId(userId);
     }
 
     @Override
@@ -40,8 +40,7 @@ public class ProductServiceImp implements ProductService{
         return productRepository.findProductByNameContaining(name);
     }
 
-    // TODO need to double check this implementation
-    // TODO don't really need update product functionality as most eCommerce site wouldn't allow this
+    // Don't need this operation for a shopping cart
     @Override
     public Product update(Product updatedProduct) {
         return productRepository.save(updatedProduct);
