@@ -67,6 +67,14 @@ public class ApplicationUser implements UserDetails{
 		this.authorities = authorities;
 	}
 
+	public String getStateCode() {
+		return this.stateCode;
+	}
+
+	public void setStateCode(String stateCode) {
+		this.stateCode = stateCode;
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub

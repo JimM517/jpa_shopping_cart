@@ -10,6 +10,8 @@ import com.magee.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 @Service
@@ -24,6 +26,10 @@ public class CartServiceImp implements CartService {
 
     @Autowired
     private CartItemRepository cartItemRepository;
+
+    @Autowired
+    private TaxService taxService;
+
 
     @Override
     public Cart getUserCart(ApplicationUser user) {
@@ -45,10 +51,12 @@ public class CartServiceImp implements CartService {
             item.setProduct(mergeProducts(products, item.getProduct().getProductId()));
         }
 
-        /** CREATE TAX INFORMATION ONCE PULLED FROM API **/
 
-
-
+        // tax and subtotal info
+        BigDecimal tax = taxService.getTaxRate(user.getStateCode());
+        BigDecimal sub = cart.getItemSubtotal();
+        BigDecimal totalWithTax = sub.multiply(tax).setScale(2, RoundingMode.UP);
+        cart.setTax(totalWithTax);
 
         return cart;
     }
@@ -56,10 +64,19 @@ public class CartServiceImp implements CartService {
     @Override
     public void clearUserCart(ApplicationUser user) {
 
+        Long currentUserId = user.getUserId();
+
+        cartItemRepository.deleteCartItemsByUserId(currentUserId);
+
     }
 
     @Override
     public void removeFromCart(ApplicationUser user, Long itemId) {
+
+        Long userId = user.getUserId();
+
+        cartItemRepository.getCartItemByCartItemIdAndUserId(userId, itemId);
+
 
     }
 
