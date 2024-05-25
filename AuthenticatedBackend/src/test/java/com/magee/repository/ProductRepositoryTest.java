@@ -50,26 +50,36 @@ class ProductRepositoryTest {
 
         List<Product> productList = productRepository.findAll();
 
-        System.out.println("Products are:" + productList);
+        System.out.println("Products are: " + productList);
 
 
     }
 
 
 
-//    @Test
-//    public void findProductBySkuOrName() {
-//
-//        List<Product> skuList = productRepository.findProductByProductSkuOrNameContaining("MUG", "");
-//        assertEquals(1, skuList.size());
-//        assertEquals("MUG-023", skuList.get(0).getProductSku());
-//
-//
-//        List<Product> nameList = productRepository.findProductByProductSkuOrNameContaining("", "Fake");
-//        assertEquals(0, nameList.size());
-//
-//
-//    }
+    @Test
+    public void findProductBySkuOrName() {
+
+        Product product = Product.builder()
+                .productSku("LIT-612")
+                .name("Intro to Astrophysics")
+                .description("Learn about astrophysics!")
+                .price(new BigDecimal("7.99"))
+                .imageName("https://via.placeholder.com/350x250.jpg")
+                .build();
+
+        productRepository.save(product);
+
+
+        List<Product> skuList = productRepository.findProductByProductSkuOrNameContaining("LIT-612", "");
+        assertEquals(1, skuList.size());
+
+
+        List<Product> nameList = productRepository.findProductByProductSkuOrNameContaining("", "Nom");
+        assertEquals(0, nameList.size());
+
+
+    }
 
 
     @Test
