@@ -70,6 +70,7 @@ class UserRepositoryTest {
 
 
 
+    /** just testing this, probably won't need this for the app **/
     @Test
     public void deleteUserInfo() {
 
