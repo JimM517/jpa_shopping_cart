@@ -84,5 +84,23 @@ class UserRepositoryTest {
 
 
 
+    @Test
+    public void updateUserStateCode() {
+
+        ApplicationUser user = userRepository.findById(3L).get();
+
+        int updatedUser = userRepository.updateApplicationUserStateCodeByAppUserId("CA", user.getUserId());
+
+
+        ApplicationUser updated = userRepository.findById(Long.valueOf(updatedUser)).get();
+
+        userRepository.save(updated);
+
+
+
+    }
+
+
+
 
 }
