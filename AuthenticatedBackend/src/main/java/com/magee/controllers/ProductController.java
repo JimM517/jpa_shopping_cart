@@ -20,12 +20,19 @@ public class ProductController {
 
     @GetMapping("/inventory")
     public List<Product> getInventory(@RequestParam(required = false) String sku, @RequestParam(required = false) String name) {
-        if (sku != null) {
-            return productService.getProductBySku(sku);
-        } else if (name != null) {
-            return productService.getProductByName(name);
-        } else {
+//        if (sku != null) {
+//            return productService.getProductBySku(sku);
+//        } else if (name != null) {
+//            return productService.getProductByName(name);
+//        } else {
+//            return productService.getAllProducts();
+//        }
+        if (sku == null && name == null) {
             return productService.getAllProducts();
+        } else if (sku != null && name == null) {
+            return productService.getProductBySku(sku);
+        } else {
+            return productService.getProductByName(name);
         }
     }
 
