@@ -8,6 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collections;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class UserRepositoryTest {
@@ -63,9 +66,21 @@ class UserRepositoryTest {
     }
 
 
-    // make delete user only accessible to admin
 
 
+
+
+    @Test
+    public void deleteUserInfo() {
+
+
+        int oldUser = userRepository.deleteApplicationUserById(6l);
+
+        Optional<ApplicationUser> deleted = userRepository.findById(Long.valueOf(oldUser));
+
+        assertTrue(deleted.isEmpty());
+
+    }
 
 
 
