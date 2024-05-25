@@ -99,7 +99,7 @@ class CartItemRepositoryTest {
         ApplicationUser user = optionalUser.get();
 
         // Attempt to delete the CartItem
-        int deletedRow = cartItemRepository.deleteCartItemByCartItemIdAndUserId(item.getCartItemId(), user.getUserId());
+        int deletedRow = cartItemRepository.deleteCartItemByCartItemIdAndApplicationUserId(item.getCartItemId(), user.getUserId());
         System.out.println(deletedRow);
         assertEquals(1, deletedRow, "One row should be deleted");
 
